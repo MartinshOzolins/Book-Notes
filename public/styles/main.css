@@ -1,0 +1,93 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 50px 1fr 50px;
+}
+header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: aliceblue;
+}
+.header-right-side {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+header form {
+    margin-right: 10px;
+}
+
+.options-icon {
+    margin: 0px 10px 0px 10px;
+    cursor: pointer;
+}
+
+.options-icon-part {
+    width: 25px;
+    height: 3px;
+    background-color: black;
+    margin: 4px 0;
+}
+
+main {
+    overflow-y: auto; /* Allows scrolling if content overflows */
+    background-color: #f0f0f0; /* Light background for better visibility */
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    padding: 10px;
+    gap: 10px;
+}
+
+.grid-item {
+    max-height: 250px;
+}
+
+.edit-book-button {
+    width: 100%;
+    height: 100%;
+}
+
+footer {
+    display: flex;
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+    background-color: aliceblue;
+}
+.add-form {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 700px;
+    max-height: 700px;
+    padding: 20px;
+}
+
+form label {
+    display: block;
+}
+
+form input,
+form select,
+form label {
+    width: 100%;
+}
+
+form textarea {
+    width: 100%;
+    max-height: 200px;
+    height: 100px;
+    overflow: auto;
+    resize: none;
+    margin-bottom: 10px;
+}
