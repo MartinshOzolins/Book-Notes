@@ -10,7 +10,6 @@ const API_URL_COVER_URL = "https://covers.openlibrary.org/b/OLID/";
 const app = express();
 const port = 3000;
 
-
 db.connect();
 
 
@@ -26,7 +25,6 @@ async function getAllNotes() {
     );
     const notes = result.rows;
     return notes
-
 }
 
 app.get("/", async (req,res) => {
@@ -44,9 +42,9 @@ app.get("/", async (req,res) => {
 })
 
 
-app.get("/add" , async (req, res) => {
+app.get("/add-form" , async (req, res) => {
     try {
-        res.render("index.ejs", {
+        res.render("partials/modify.ejs", {
             view: "add",
         })
     } catch (error) {
@@ -108,6 +106,48 @@ app.post("/add-book", async (req, res) => {
     res.redirect("/");
     
 });
+
+app.get("/edit-form/:id", async (req, res) => {
+    const id = req.params.id
+
+
+    const result = await db.query("SELECT book_info.id, book_info.book_title, book_info.author, book_info.year, book_info.genre, book_notes.rating, book_notes.note FROM book_info JOIN book_notes on book_info.id = book_notes.book_id WHERE book_info.id = $1", [id])
+    let book = result.rows[0];
+    try {
+        res.render("partials/modify.ejs", {
+            view: "edit",
+            book: book
+        })
+    } catch (error) {
+        console.log("Error name:", error.name);
+        console.log("Error message:", error.message);
+        console.log("Stack trace:", error.stack);
+    }
+
+})
+
+app.post("/edit-book" , (req, res) => {
+    try {
+        const id = req.body.id
+        const author = req.body.author;
+        const year = req.body.year;
+        let genre = req.body.genre.toLowerCase();
+        genre = genre[0].toUpperCase() + genre.slice(1)
+        const rating = req.body.rating;
+        const note = req.body.notes;
+
+        db.query("UPDATE book_info SET author = $1, year = $2, genre = $3 WHERE id = $4", [ author, year, genre, id])
+
+        db.query("UPDATE book_notes SET note = $1, rating = $2 WHERE book_id = $3", [note, rating, id])
+
+
+    } catch (error) {
+        console.log("Error name:", error.name);
+        console.log("Error message:", error.message);
+        console.log("Stack trace:", error.stack);
+    }
+    res.redirect("/");
+})
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

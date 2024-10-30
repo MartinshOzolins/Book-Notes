@@ -19,6 +19,11 @@ header {
     align-items: center;
 }
 
+a {
+    color: black;
+    text-decoration: none;
+}
+
 header form {
     margin-right: 10px;
 }
@@ -54,6 +59,8 @@ main {
 .edit-book-button {
     width: 100%;
     height: 100%;
+    overflow: hidden; 
+    /* Change to  media queries later*/
 }
 
 footer {
@@ -62,7 +69,7 @@ footer {
     justify-content: center; /* Centers content horizontally */
     background-color: aliceblue;
 }
-.add-form {
+.manipulation-form {
     margin: 20px auto;
     display: flex;
     flex-direction: column;

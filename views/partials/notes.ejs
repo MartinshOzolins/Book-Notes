@@ -1,52 +1,33 @@
 <main>
 
-    <% if (locals.view) { %>
-       <% if (view = "add") { %>
-        <form action="/add-book" method="POST" class="add-form">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title"><br><br>
-            <label for="author">Author</label>
-            <input type="text" id="author" name="author"><br><br>
-            <label for="author">Year</label>
-            <input type="number" id="year" name="year"><br><br>
-            <label for="genre">Genre</label>
-            <input type="text" id="genre" name="genre"><br><br>
-            
-            
 
-            <label for="rating">Rating</label>
-            <select name="rating" id="rating">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="4">5</option>
-            </select>
-            <br><br>
+<div class="grid-container">
+    <% notes.forEach(book => { %>
+        <div class="grid-item">
+            <a href="/edit-form/<%=book.id %>" class="edit-book-button">
+                
+                <img src="<%= book.cover_url %>" alt="<%= book.book_title %> cover" class="book-cover">
+
+                <h3><%= book.book_title %> (<%= book.year %>)</h3>
+                
+
+                <h4><%= book.author %></h4>
+                
+
+                <p>Rating: <%= book.rating %>/5</p>
+                
+
+                <p>Genre: <%= book.genre %></p>
+                
+
+            </a>
+        </div>
+    <% }); %>
+</form>
 
 
-            <label for="notes">Notes</label>
-            <textarea type="text" id="notes" name="notes"> </textarea>
 
-            <input type="submit" value="ADD">
-        </form>
-       <% } %>
-    <%} else { %>
-    <form class="" action="/edit-note" method="POST">
-        <div class="grid-container">
-            <% notes.forEach(book => { %>
-                <div class="grid-item">
-                    <button type="submit" name="note" value="<%= book.id %>" class="edit-book-button">
-                        <img src="<%= book.cover_url %>" alt="<%= book.book_title %> cover" class="book-cover">
-                        <h3><%= book.book_title %> (<%= book.year %>)</h3>
-                        <h4><%= book.author %></h4>
-                        <p>Rating: <%= book.rating %>/5</p>
-                        <p>Genre: <%= book.genre %></p>
-                    </button>
-                </div>
-            <% }); %>
-    </form>
-   <% }%>
+
     
 
     

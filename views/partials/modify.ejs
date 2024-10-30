@@ -1,0 +1,63 @@
+<%- include("header.ejs") %>
+<main>
+<% if (locals.view) { %>
+    <% if (view === "add") { %>
+     <form action="/add-book" method="post" class="manipulation-form">
+         <label for="title">Title</label>
+         <input type="text" id="title" name="title"><br><br>
+         <label for="author">Author</label>
+         <input type="text" id="author" name="author"><br><br>
+         <label for="author">Year</label>
+         <input type="number" id="year" name="year"><br><br>
+         <label for="genre">Genre</label>
+         <input type="text" id="genre" name="genre"><br><br>
+         
+         
+
+         <label for="rating">Rating</label>
+         <select name="rating" id="rating">
+             <option value="1">1</option>
+             <option value="2">2</option>
+             <option value="3">3</option>
+             <option value="4">4</option>
+             <option value="4">5</option>
+         </select>
+         <br><br>
+
+
+         <label for="notes">Notes</label>
+         <textarea type="text" id="notes" name="notes"> </textarea>
+
+         <input type="submit" value="ADD">
+     </form>
+    <% } else if (view === "edit") { %>
+     <form action="/edit-book" method="post" class="manipulation-form">
+         <label for="title">Title</label>
+         <input type="text" id="title" name="title" value="<%= book.book_title %>" readonly><br><br>
+         <label for="author">Author</label>
+         <input type="text" id="author" name="author" value="<%= book.author %>"><br><br>
+         <label for="year">Year</label>
+         <input type="number" id="year" name="year" value="<%= book.year %>"><br><br>
+         <label for="genre">Genre</label>
+         <input type="text" id="genre" name="genre" value="<%= book.genre %>"><br><br>
+         
+         
+         <label for="rating">Rating</label>
+         <select name="rating" id="rating">
+             <option value="1" <%= book.rating === 1 ? 'selected' : '' %>>1</option>
+             <option value="2" <%= book.rating === 2 ? 'selected' : '' %>>2</option>
+             <option value="3" <%= book.rating === 3 ? 'selected' : '' %>>3</option>
+             <option value="4" <%= book.rating === 4 ? 'selected' : '' %>>4</option>
+             <option value="5" <%= book.rating === 5 ? 'selected' : '' %>>5</option>
+         </select>
+         <br><br>
+
+
+         <label for="notes">Notes</label>
+         <textarea type="text" id="notes" name="notes" > <%= book.note %></textarea>
+
+         <button type="submit" name="id" value="<%= book.id %>">Edit Note</button>
+     </form>
+     <% } %>
+ <% } %>
+ <%- include("footer.ejs") %>
