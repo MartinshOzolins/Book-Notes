@@ -32,7 +32,7 @@ app.get("/", async (req,res) => {
         const notes = await getAllNotes()
         res.render("index.ejs", {
         notes: notes
-    })
+    });
     } catch (error) {
         console.log("Error name:", error.name);
         console.log("Error message:", error.message);
@@ -46,7 +46,7 @@ app.get("/add-form" , async (req, res) => {
     try {
         res.render("partials/modify.ejs", {
             view: "add",
-        })
+        });
     } catch (error) {
         console.log("Error name:", error.name);
         console.log("Error message:", error.message);
@@ -85,7 +85,7 @@ app.post("/add-book", async (req, res) => {
         // Check if docs is an array and has entries
         if (Array.isArray(docs) && docs.length > 0) {
             //Creates a new array containing the isbn from each object
-            const coverIdArray = docs.map((doc) => doc.cover_edition_key)
+            const coverIdArray = docs.map((doc) => doc.cover_edition_key);
             const coverId = coverIdArray[0];
             const coverUrl = API_URL_COVER_URL + coverId+ "-S.jpg";
 
@@ -111,13 +111,13 @@ app.get("/edit-form/:id", async (req, res) => {
     const id = req.params.id
 
 
-    const result = await db.query("SELECT book_info.id, book_info.book_title, book_info.author, book_info.year, book_info.genre, book_notes.rating, book_notes.note FROM book_info JOIN book_notes on book_info.id = book_notes.book_id WHERE book_info.id = $1", [id])
+    const result = await db.query("SELECT book_info.id, book_info.book_title, book_info.author, book_info.year, book_info.genre, book_notes.rating, book_notes.note FROM book_info JOIN book_notes on book_info.id = book_notes.book_id WHERE book_info.id = $1", [id]);
     let book = result.rows[0];
     try {
         res.render("partials/modify.ejs", {
             view: "edit",
             book: book
-        })
+        });
     } catch (error) {
         console.log("Error name:", error.name);
         console.log("Error message:", error.message);
@@ -150,13 +150,12 @@ app.post("/edit-book" , async (req, res) => {
 })
 
 app.get("/delete-book/:id" ,  async (req, res) =>{
-    const id = req.params.id
-    console.log(id)
+    const id = req.params.id;
     try {
         const result = await db.query("DELETE FROM book_info WHERE id = $1 RETURNING book_title, author", [
             id
         ]);
-        console.log(result.rows)
+        console.log(result.rows); //Deleted book
         
     } catch (error) {
         console.log("Error name:", error.name);
