@@ -98,3 +98,18 @@ form textarea {
     resize: none;
     margin-bottom: 10px;
 }
+.button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.edit-book-button a {
+    display: flex;
+    justify-content: center;
+}
+.edit-book-button {
+    padding: 10px 20px;
+    margin: 10px;
+    height: 50px;
+}

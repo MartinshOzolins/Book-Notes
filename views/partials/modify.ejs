@@ -56,7 +56,11 @@
          <label for="notes">Notes</label>
          <textarea type="text" id="notes" name="notes" > <%= book.note %></textarea>
 
-         <button type="submit" name="id" value="<%= book.id %>">Edit Note</button>
+         <div class="button-container">
+            <button class="edit-book-button" type="submit" name="id" value="<%= book.id %>">SAVE</button>
+            <button class="edit-book-button"> <a href="/delete-book/<%= book.id %>">DELETE</a></button>
+         </div>
+
      </form>
      <% } %>
  <% } %>

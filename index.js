@@ -126,7 +126,7 @@ app.get("/edit-form/:id", async (req, res) => {
 
 })
 
-app.post("/edit-book" , (req, res) => {
+app.post("/edit-book" , async (req, res) => {
     try {
         const id = req.body.id
         const author = req.body.author;
@@ -136,11 +136,28 @@ app.post("/edit-book" , (req, res) => {
         const rating = req.body.rating;
         const note = req.body.notes;
 
-        db.query("UPDATE book_info SET author = $1, year = $2, genre = $3 WHERE id = $4", [ author, year, genre, id])
+        await db.query("UPDATE book_info SET author = $1, year = $2, genre = $3 WHERE id = $4", [ author, year, genre, id]);
 
-        db.query("UPDATE book_notes SET note = $1, rating = $2 WHERE book_id = $3", [note, rating, id])
+        await db.query("UPDATE book_notes SET note = $1, rating = $2 WHERE book_id = $3", [note, rating, id]);
 
 
+    } catch (error) {
+        console.log("Error name:", error.name);
+        console.log("Error message:", error.message);
+        console.log("Stack trace:", error.stack);
+    }
+    res.redirect("/");
+})
+
+app.get("/delete-book/:id" ,  async (req, res) =>{
+    const id = req.params.id
+    console.log(id)
+    try {
+        const result = await db.query("DELETE FROM book_info WHERE id = $1 RETURNING book_title, author", [
+            id
+        ]);
+        console.log(result.rows)
+        
     } catch (error) {
         console.log("Error name:", error.name);
         console.log("Error message:", error.message);
